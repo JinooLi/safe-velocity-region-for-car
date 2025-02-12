@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
-import numpy as np
+import time
 from typing import Tuple
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 # 맞는 속도가 없는 경우를 나타내기 위한 상수.
 # matplot에서는 np.nan을 사용할 수 없기 때문에 -1.0으로 설정
@@ -235,10 +238,36 @@ class SafeCar:
 
         raise ValueError("get_max_speed: iteration limit exceeded.")
 
+    def visualize_speed_bound(self):
+        # 그래프 그리기
+        # 각 v_n을 x축으로 놓고, delta_next를 y축으로 놓았을 때 bound_speed_next_step을 계산하고
+        # z축에 놓은 그래프를 그린다.
+        # (v_n, delta_next)의 범위는 각각 [0, 8], [-1, 1]로 한다.
+        # (dt, omega, L, mu, g)는 위의 예시와 같은 값으로 한다.
+        v_n_range = np.linspace(0, 10, 100)
+        delta_next_range = np.linspace(-1.2, 1.2, 100)
+        v_n_mesh, delta_next_mesh = np.meshgrid(v_n_range, delta_next_range)
+        bound_speed_next_step_mesh = np.vectorize(car.make_velo_bound_with_worst_case)(
+            v_n_mesh, delta_next_mesh
+        )
+        cmap = "rainbow"
 
-import time
+        fig = plt.figure()
+        ax = fig.add_subplot(projection="3d")
+        ax.contour(
+            v_n_mesh,
+            delta_next_mesh,
+            bound_speed_next_step_mesh[0],
+            levels=20,
+            cmap=cmap,
+        )
+        ax.plot_wireframe(v_n_mesh, delta_next_mesh, bound_speed_next_step_mesh[1])
+        ax.set_xlabel("$v_{n}$")
+        ax.set_ylabel("$\delta_{\t{next}}$")
+        ax.set_zlabel("bound_speed_next_step")
 
-import matplotlib.pyplot as plt
+        plt.show()
+
 
 if __name__ == "__main__":
     # 변수
@@ -264,26 +293,4 @@ if __name__ == "__main__":
     print("max speed:", car.get_max_speed())
 
     # 그래프 그리기
-    # 각 v_n을 x축으로 놓고, delta_next를 y축으로 놓았을 때 bound_speed_next_step을 계산하고
-    # z축에 놓은 그래프를 그린다.
-    # (v_n, delta_next)의 범위는 각각 [0, 8], [-1, 1]로 한다.
-    # (dt, omega, L, mu, g)는 위의 예시와 같은 값으로 한다.
-    v_n_range = np.linspace(0, 10, 100)
-    delta_next_range = np.linspace(-1.4, 1.4, 100)
-    v_n_mesh, delta_next_mesh = np.meshgrid(v_n_range, delta_next_range)
-    bound_speed_next_step_mesh = np.vectorize(car.make_velo_bound_with_worst_case)(
-        v_n_mesh, delta_next_mesh
-    )
-    cmap = "rainbow"
-
-    fig = plt.figure()
-    ax = fig.add_subplot(projection="3d")
-    ax.contour(
-        v_n_mesh, delta_next_mesh, bound_speed_next_step_mesh[0], levels=20, cmap=cmap
-    )
-    ax.plot_wireframe(v_n_mesh, delta_next_mesh, bound_speed_next_step_mesh[1])
-    ax.set_xlabel("$v_{n}$")
-    ax.set_ylabel("$\delta_{\t{next}}$")
-    ax.set_zlabel("bound_speed_next_step")
-
-    plt.show()
+    car.visualize_speed_bound()
