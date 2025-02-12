@@ -104,7 +104,7 @@ class SafeCar:
 
         return max_feasible_speed, min_feasible_speed
 
-    def is_pass_worst_case_test( 
+    def is_pass_worst_case_test(
         self,
         v_n: float,
         delta_next: float,
@@ -225,6 +225,17 @@ class SafeCar:
             return NAN, NAN
 
     def get_max_speed(self, iteration_limit: int = 1000) -> float:
+        """최대 속도를 찾는 함수. 최대한 빠르게 가속하는 상황을 시뮬레이션 하여 수렴하는 속도를 찾는다.
+
+        Args:
+            iteration_limit (int, optional): 최대 속도를 찾기 위한 시뮬레이션 step 수. Defaults to 1000.
+
+        Raises:
+            ValueError: iteration limit exceeded. 최대 속도를 찾기 위한 시뮬레이션 step 수가 부족한 경우 발생.
+
+        Returns:
+            float: 수렴한 최대 속도(m/s)
+        """
         # 최대 속도 찾기
         max_speed = 0
         for __ in range(iteration_limit):
@@ -239,13 +250,14 @@ class SafeCar:
         raise ValueError("get_max_speed: iteration limit exceeded.")
 
     def visualize_speed_bound(self):
+        """state에 따른 속도 범위를 그래프로 그리는 함수."""
         # 그래프 그리기
         # 각 v_n을 x축으로 놓고, delta_next를 y축으로 놓았을 때 bound_speed_next_step을 계산하고
         # z축에 놓은 그래프를 그린다.
-        # (v_n, delta_next)의 범위는 각각 [0, 8], [-1, 1]로 한다.
-        # (dt, omega, L, mu, g)는 위의 예시와 같은 값으로 한다.
+        # (v_n, delta_next)의 범위는 각각 아래와 같이 설정한다.
         v_n_range = np.linspace(0, 10, 100)
         delta_next_range = np.linspace(-1.2, 1.2, 100)
+
         v_n_mesh, delta_next_mesh = np.meshgrid(v_n_range, delta_next_range)
         bound_speed_next_step_mesh = np.vectorize(car.make_velo_bound_with_worst_case)(
             v_n_mesh, delta_next_mesh
