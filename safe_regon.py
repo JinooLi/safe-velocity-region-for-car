@@ -252,7 +252,7 @@ if __name__ == "__main__":
 
     car = SafeCar(c=c_example, omega=omega_example, dt=dt_example)
 
-    # 테스트
+    # 하나의 state에 대해 범위를 구하는데 걸리는 시간 측정
     start = time.time()
     print(
         "Test-bound_speed_next_step :",
@@ -261,7 +261,7 @@ if __name__ == "__main__":
     end = time.time()
     print(f"Elapsed time: {end - start} sec")
 
-    print("max speed: ", car.get_max_speed())
+    print("max speed:", car.get_max_speed())
 
     # 그래프 그리기
     # 각 v_n을 x축으로 놓고, delta_next를 y축으로 놓았을 때 bound_speed_next_step을 계산하고
