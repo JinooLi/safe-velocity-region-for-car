@@ -118,6 +118,9 @@ class SafeCar:
             delta_next (float)              : 다음 조향각(rad)
             iteration_limit (int, optional) : 반복 횟수 제한. Defaults to 100.
 
+        Raises:
+            ValueError: iteration limit exceeded. 반복 횟수 제한을 초과한 경우 발생.
+
         Returns:
             bool: 안전영역에 머무르는 것이 가능하면 True, 아니면 False
         """
@@ -157,7 +160,7 @@ class SafeCar:
 
         # iteration limit에 도달하면 에러 발생
         raise ValueError(
-            "worst_case_test: iteration limit exceeded. Please update the iteration limit larger."
+            "worst_case_test: iteration limit exceeded. Please set the iteration limit larger."
         )
 
     def make_velo_bound_with_worst_case(
@@ -275,7 +278,7 @@ class SafeCar:
         )
         ax.plot_wireframe(v_n_mesh, delta_next_mesh, bound_speed_next_step_mesh[1])
         ax.set_xlabel("$v_{n}$")
-        ax.set_ylabel("$\delta_{\t{next}}$")
+        ax.set_ylabel(r"$\delta_{\t{next}}$")
         ax.set_zlabel("velocity bound of next step")
 
         plt.show()
