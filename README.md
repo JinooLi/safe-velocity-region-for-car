@@ -68,3 +68,7 @@ $$v_m \leq v_{n+1} \leq v_M$$
 이때, 어떤 state에서 worst case에 대해 최소 속도는 safe하지만 최대 속도는 unsafe할 수 있다. 이때 safe한 최대 속도를 찾기 위해 이진탐색을 진행하여 worst case에 대해 안전한 최대 속도를 찾는 함수 `SafeCar.make_velo_bound_with_worst_case()`를 작성하였다.
 
 이 함수를 사용하면 어떤 state에서 worst case를 고려했을 때도 안전한 다음 step의 속도 영역을 얻을 수 있다. 
+
+![](./image/image.png)
+
+- 이 이미지에서 무지개색 등고선이 그 state에서 다음 step에 낼 수 있는 최대 속도이며, 파란색 그물이 최소 속도이다. -1인 값들은 안전하지 않은 영역을 나타낸다.
