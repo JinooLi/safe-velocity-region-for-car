@@ -104,7 +104,7 @@ class SafeCar:
 
         return max_feasible_speed, min_feasible_speed
 
-    def is_worst_case_test_passed(
+    def is_pass_worst_case_test( 
         self,
         v_n: float,
         delta_next: float,
@@ -185,7 +185,7 @@ class SafeCar:
         if min_speed == NAN:
             return NAN, NAN
 
-        max_worst_case_test_result = self.is_worst_case_test_passed(
+        max_worst_case_test_result = self.is_pass_worst_case_test(
             max_speed, delta_next, iteration_limit
         )
 
@@ -196,7 +196,7 @@ class SafeCar:
             else:  # 안전하지 않은 경우 NAN 반환
                 return NAN, NAN
 
-        min_worst_case_test_result = self.is_worst_case_test_passed(
+        min_worst_case_test_result = self.is_pass_worst_case_test(
             min_speed, delta_next, iteration_limit
         )
 
@@ -209,7 +209,7 @@ class SafeCar:
             width = max_speed - min_speed / 2
             test_speed = min_speed + width
             for __ in range(binary_search_iter_time):
-                is_it_okay = self.is_worst_case_test_passed(
+                is_it_okay = self.is_pass_worst_case_test(
                     test_speed, delta_next, iteration_limit
                 )
 
