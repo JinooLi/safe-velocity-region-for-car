@@ -262,7 +262,7 @@ class SafeCar:
         delta_next_range = np.linspace(-1.2, 1.2, 100)
 
         v_n_mesh, delta_next_mesh = np.meshgrid(v_n_range, delta_next_range)
-        bound_speed_next_step_mesh = np.vectorize(car.make_velo_bound_with_worst_case)(
+        bound_speed_next_step_mesh = np.vectorize(self.make_velo_bound_with_worst_case)(
             v_n_mesh, delta_next_mesh
         )
         cmap = "rainbow"
