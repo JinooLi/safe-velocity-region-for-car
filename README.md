@@ -23,7 +23,8 @@ $$F_c^2+F_a^2 = F_{\text{total}}^2$$
 
 원심력 : $F_c := \dfrac{mv^2}{r}= \dfrac{mv^2\tan|\delta|}{L}$  
 가속력 : $F_a := ma$  
-최대 정지 마찰력 : $F_f=\mu m g$
+최대 정지 마찰력 : $F_f=\mu m g$  
+
 $$\begin{align*}
     F_c^2+F_a^2 &\leq F_f^2 \\
     m^2\left(\frac{v^4 \tan^2|\delta|}{L^2}+a^2\right) &\leq\mu^2m^2g^2 \\
