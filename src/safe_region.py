@@ -110,7 +110,7 @@ class SafeCar:
         delta_next: float,
         iteration_limit: int = 100,
     ) -> bool:
-        """worst case test. 조향각 가속도를 최대한으로 증가시켜 그 추이를 확인하고,
+        """worst case test. 조향각속도를 최대한으로 하는 시뮬레이션을 통해 안전 영역에 머무르는지 확인하는 함수.
         안전영역에 머무르는 것이 가능하면 True를 반환한다. 아니면 False.
 
         Args:
