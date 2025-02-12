@@ -269,6 +269,8 @@ class SafeCar:
 
         fig = plt.figure()
         ax = fig.add_subplot(projection="3d")
+
+        # 최대 속도 그래프 설정
         ax.contour(
             v_n_mesh,
             delta_next_mesh,
@@ -276,7 +278,11 @@ class SafeCar:
             levels=20,
             cmap=cmap,
         )
+
+        # 최소 속도 그래프 설정
         ax.plot_wireframe(v_n_mesh, delta_next_mesh, bound_speed_next_step_mesh[1])
+
+        # 그래프 축 이름 설정
         ax.set_xlabel("$v_{n}$")
         ax.set_ylabel(r"$\delta_{\t{next}}$")
         ax.set_zlabel("velocity bound of next step")
