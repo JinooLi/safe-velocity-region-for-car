@@ -32,7 +32,7 @@ class SafeCar:
         self.L = L
         self.c = c
 
-    def make_bound_velo_next_step(
+    def make_velo_bound_next_step(
         self,
         v_n: float,
         delta_next: float,
@@ -128,7 +128,7 @@ class SafeCar:
         min_velo = v_n
         end_flag = False
         for __ in range(iteration_limit):
-            max_velo, min_velo = self.make_bound_velo_next_step(
+            max_velo, min_velo = self.make_velo_bound_next_step(
                 min_velo, new_delta_next
             )
 
@@ -176,7 +176,7 @@ class SafeCar:
             Tuple[float,float] : v_{n+1}의 안전하기 위한 최대값과 최소값.
             만약 이 값이 NAN(==-1)이면, 이 부등식을 만족하는 속도가 없다는 것을 의미한다.
         """
-        max_speed, min_speed = self.make_bound_velo_next_step(v_n, delta_next)
+        max_speed, min_speed = self.make_velo_bound_next_step(v_n, delta_next)
 
         # 적절한 속도가 없는 경우 NAN 반환
         if min_speed == NAN:
