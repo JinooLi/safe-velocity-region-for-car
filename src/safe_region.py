@@ -276,7 +276,7 @@ class SafeCar:
         ax.plot_wireframe(v_n_mesh, delta_next_mesh, bound_speed_next_step_mesh[1])
         ax.set_xlabel("$v_{n}$")
         ax.set_ylabel("$\delta_{\t{next}}$")
-        ax.set_zlabel("bound_speed_next_step")
+        ax.set_zlabel("velocity bound of next step")
 
         plt.show()
 
