@@ -125,11 +125,9 @@ class SafeCar:
         Returns:
             bool: 안전영역에 머무르는 것이 가능하면 True, 아니면 False
         """
-        # 조향각의 방향과 같은 방향의 최대 각가속도로 설정
-        if delta_next < 0:
-            omega = -self.omega
-        else:
-            omega = self.omega
+        # delta_next가 음수인 경우 양수로 변환
+        # 어차피 해는 조향각 = 0에 대칭이므로, delta_next가 음수인 경우 양수로 변환하여 계산
+        delta_next = abs(delta_next)
 
         new_delta_next = delta_next
         min_velo = v_n
@@ -149,14 +147,14 @@ class SafeCar:
                 min_speed = min(abs(min_velo), abs(max_velo))
                 min_velo = min_speed * np.sign(min_velo)
 
-            if end_flag:
+            if end_flag:  # steering limit에 도달했음에도 안전하므로 True를 반환
                 return True
 
-            new_delta_next += self.dt * omega
+            new_delta_next += self.dt * self.omega
 
-            # steering limit - 최대 조향각에 도달했음에도 안전하면 True를 반환하기 위해 end_flag를 True로 설정
-            if abs(new_delta_next) > self.max_delta:
-                new_delta_next = self.max_delta * np.sign(new_delta_next)
+            # 최대 조향각에 도달했음을 표시
+            if new_delta_next > self.max_delta:
+                new_delta_next = self.max_delta
                 end_flag = True
 
         # iteration limit에 도달하면 에러 발생
@@ -174,8 +172,8 @@ class SafeCar:
         """worst case test를 통해 안전한 속도 범위를 찾는 함수
 
         Args:
-            v_n (float)                             : 현재 속도
-            delta_next (float)                      : 현재 조향각
+            v_n (float)                             : 현재 속도(m/s)
+            delta_next (float)                      : 다음 조향각(rad)
             iteration_limit (int, optional)         : worst case test 반복 횟수 제한. Defaults to 100.
             binary_search_iter_time (int, optional) : binary search iteration 횟수 제한. Defaults to 20.
 
