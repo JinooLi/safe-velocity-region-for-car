@@ -74,3 +74,5 @@ $$v_m \leq v_{n+1} \leq v_M$$
 ![](./image/image.png)
 
 - 이 이미지에서 무지개색 등고선이 그 state에서 다음 step에 낼 수 있는 최대 속도이며, 파란색 그물이 최소 속도이다. -1인 값들은 안전하지 않은 영역을 나타낸다.
+
+![](./image/velocity_bound.gif)
