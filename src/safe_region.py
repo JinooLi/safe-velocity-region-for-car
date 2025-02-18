@@ -251,11 +251,11 @@ class SafeCar:
 
         raise ValueError("get_max_speed: iteration limit exceeded.")
 
-    def visualize_speed_bound(self, animate: bool = False):
+    def visualize_speed_bound(self, animate_graph: bool = False):
         """state에 따른 속도 범위를 그래프로 그리는 함수.
 
         Args:
-            animate (bool, optional) : 그래프를 애니메이션으로 보여줄지 여부. Defaults to False.
+            animate_graph (bool, optional) : 그래프를 애니메이션으로 보여줄지 여부. Defaults to False.
         """
         # 그래프 그리기
         # 각 v_n을 x축으로 놓고, delta_next를 y축으로 놓았을 때 bound_speed_next_step을 계산하고
@@ -305,7 +305,7 @@ class SafeCar:
 
         fig.tight_layout()
 
-        if animate:
+        if animate_graph:
 
             def animate(i):  # type: ignore
                 ax[0].view_init(elev=10, azim=i)
