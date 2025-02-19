@@ -1,29 +1,26 @@
 #pragma once
 
-#include <cmath>      // std::pow, std::tan, std::abs
-#include <functional> // std::abs
-#include <iostream>   // std::cerr
-#include <utility>    // std::pair
-
 #include <pybind11/pybind11.h>
+
+#include <cmath>     // std::pow, std::tan, std::abs
+#include <iostream>  // std::cerr
+#include <utility>   // std::pair
 
 #define DANGER -1.0
 
-typedef struct _velocityBound
-{
+typedef struct _velocityBound {
     bool isSafe;
     double vMax;
     double vMin;
 } veloBound;
 
-class SafeCar
-{
-private:
-    const double _omega;    // 조향각속도 최대값(rad/s)
-    const double _maxDelta; // 조향각 최대값(rad)
-    const double _dt;       // 시간 간격(s)
-    const double _L;        // 차량의 wheelbase(m)
-    const double _c;        // 상수(c = sqrt(L*mu*g))
+class SafeCar {
+   private:
+    const double _omega;     // 조향각속도 최대값(rad/s)
+    const double _maxDelta;  // 조향각 최대값(rad)
+    const double _dt;        // 시간 간격(s)
+    const double _L;         // 차량의 wheelbase(m)
+    const double _c;         // 상수(c = sqrt(L*mu*g))
 
     /**
      * @brief 4차 다항식
@@ -33,16 +30,15 @@ private:
      * @param v 속도(m/s) : 4차 다항식의 변수
      * @return double - 4차 다항식의 값
      */
-    class Polynomial
-    {
-    private:
+    class Polynomial {
+       private:
         double _a4;
         // _a3 = 0
         double _a2;
         double _a1;
         double _a0;
 
-    public:
+       public:
         Polynomial() = default;
         Polynomial(double currentVelocity, double nextDelta, double L, double dt, double c);
 
@@ -77,7 +73,7 @@ private:
 
     Polynomial _polynomial;
 
-public:
+   public:
     SafeCar(double omega = 3.2, double maxDelta = 1.1, double dt = 0.05, double L = 0.325,
             double c = 2.0);
 
