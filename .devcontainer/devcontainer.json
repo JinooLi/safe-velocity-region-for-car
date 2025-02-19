@@ -1,0 +1,26 @@
+{
+    "name": "safe-car-velo-region",
+    "build": {
+      "context": "..",
+      "dockerfile": "./Dockerfile"
+    },
+    "features": {
+      "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },
+    "runArgs": ["--network", "host"],
+    "customizations": {
+      "vscode": {
+        "extensions": [
+            "ms-python.black-formatter",
+            "mhutchie.git-graph",
+            "esbenp.prettier-vscode",
+            "streetsidesoftware.code-spell-checker",
+            "wayou.vscode-todo-highlight",
+            "ms-vscode.makefile-tools",
+            "ms-vscode.cpptools",
+            "ms-vscode.cpptools-extension-pack",
+            "njpwerner.autodocstring"
+        ]
+      }
+    }
+  }
