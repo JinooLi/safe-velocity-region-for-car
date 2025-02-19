@@ -8,6 +8,6 @@ cd $THIS_DIR
 
 c++ -O3 -Wall -shared -std=c++11 -fPIC \
     $(python3 -m pybind11 --includes) \
-    src/safecar.cpp -o safecar$(python3-config --extension-suffix)
+    src/pybind.cpp src/safecar.cpp -o safecar$(python3-config --extension-suffix)
 
 
