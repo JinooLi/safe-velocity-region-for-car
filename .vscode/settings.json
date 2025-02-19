@@ -11,5 +11,8 @@
         "suptitle",
         "vmvbns",
         "vmvbwwc"
-    ]
+    ],
+    "files.associations": {
+        "cmath": "cpp"
+    }
 }
