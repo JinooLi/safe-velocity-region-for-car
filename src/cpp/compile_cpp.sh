@@ -5,9 +5,9 @@
 THIS_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 
 cd $THIS_DIR
-mkdir -p build
+
 c++ -O3 -Wall -shared -std=c++11 -fPIC \
     $(python3 -m pybind11 --includes) \
-    src/safecar.cpp -o build/safecar$(python3-config --extension-suffix)
+    src/safecar.cpp -o safecar$(python3-config --extension-suffix)
 
 

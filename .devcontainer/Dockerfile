@@ -34,7 +34,5 @@ COPY --chown=${USERNAME}:${USERNAME} pyproject.toml poetry.lock ./
 
 RUN poetry install --no-root
 
-RUN echo "poetry env activate" >> ~/.bashrc
-
 # Set default user to vscode
 USER ${USERNAME}
