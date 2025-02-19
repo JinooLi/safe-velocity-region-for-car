@@ -4,6 +4,8 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import animation
+from src.cpp import safe_region_cpp
+from src.py import safe_region
 
 
 def get_max_speed(safe_car, iteration_limit: int = 1000) -> float:
@@ -113,26 +115,35 @@ if __name__ == "__main__":
     omega_example = 3.2  # rad/s
     dt_example = 0.05  # s
 
-    select = input("py or cpp? ")
-    if select == "py":
-        from src.py import safe_region
+    pycar = safe_region.SafeCar(c=c_example, omega=omega_example, dt=dt_example)
 
-        car = safe_region.SafeCar(c=c_example, omega=omega_example, dt=dt_example)
-    else:
-        from src.cpp import safe_region_cpp
+    cppcar = safe_region_cpp.SafeCar(c=c_example, omega=omega_example, dt=dt_example)
 
-        car = safe_region_cpp.SafeCar(c=c_example, omega=omega_example, dt=dt_example)
+    # 하나의 state에 대해 범위를 구하는데 걸리는 평균 시간 측정
+    iterations = 1000
+    random_v_n = []
+    random_delta_next = []
+    for _ in range(iterations):
+        random_v_n.append(np.random.rand() * 2.2 - 1.1)
+        random_delta_next.append(np.random.rand() * 2.0)
 
-    # 하나의 state에 대해 범위를 구하는데 걸리는 시간 측정
     start = time.time()
-    print(
-        "Test-bound_speed_next_step :",
-        car.make_velo_bound_with_worst_case(v_n_example, delta_next_example),
-    )
+    for i in range(iterations):
+        pycar.make_velo_bound_with_worst_case(random_v_n[i], random_delta_next[i])
     end = time.time()
-    print(f"Elapsed time: {end - start} sec")
+    py_time = end - start
+    print(f"python: {iterations} Elapsed time: {py_time} sec")
 
-    print("max speed:", get_max_speed(car))
+    start = time.time()
+    for i in range(iterations):
+        cppcar.make_velo_bound_with_worst_case(random_v_n[i], random_delta_next[i])
+    end = time.time()
+    cpp_time = end - start
+    print(f"C++: {iterations} Elapsed time: {cpp_time} sec")
+
+    print(f"C++ is {py_time/cpp_time} times faster")
+
+    print("max speed:", get_max_speed(cppcar))
 
     # 그래프 그리기
-    visualize_speed_bound(car, animate_graph=False)
+    visualize_speed_bound(cppcar, animate_graph=False)
