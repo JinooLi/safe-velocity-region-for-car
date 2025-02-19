@@ -19,7 +19,8 @@
             "ms-vscode.makefile-tools",
             "ms-vscode.cpptools",
             "ms-vscode.cpptools-extension-pack",
-            "njpwerner.autodocstring"
+            "njpwerner.autodocstring",
+            "GitHub.copilot"
         ]
       }
     }
