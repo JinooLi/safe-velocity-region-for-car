@@ -2,6 +2,8 @@
 
 THIS_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 
+. .venv/bin/activate
+
 cd $THIS_DIR/src/cpp
 
 make
