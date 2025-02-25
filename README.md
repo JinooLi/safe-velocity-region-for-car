@@ -108,4 +108,4 @@ $$v_m \leq v_{n+1} \leq v_M$$
 
 1. devcontainer 환경을 실행시킨다.
 2. `poetry install`입력하여 필요한 파이썬 패키지를 설치한다.
-3. `./start.sh`입력하여 실행.
+3. `./run.sh`입력하여 실행.
